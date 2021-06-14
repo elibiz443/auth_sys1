@@ -1,8 +1,10 @@
 class SessionsController < ApplicationController
-	def new
-	end
+	skip_before_action :require_valid_user!, except: [:destroy]
 
-	def create
+  def new
+  end
+
+  def create
     reset_session
     @user = User.find_by(email: session_params[:email])
 
@@ -16,9 +18,10 @@ class SessionsController < ApplicationController
     end
   end
 
-  skip_before_action :require_valid_user!, except: [:destroy]
-	def destroy
+  def destroy
     reset_session
+          redirect_to login_path
+
   end
 
   def session_params
