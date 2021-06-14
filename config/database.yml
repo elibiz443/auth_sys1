@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: elly
+  password: immortal
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: auth_sys1_development
+
+test:
+  <<: *default
+  database: auth_sys1_test
+
+production:
+  <<: *default
+  database: auth_sys1_production
+  username: auth_sys1
+  password: <%= ENV['AUTH_SYS1_DATABASE_PASSWORD'] %>
